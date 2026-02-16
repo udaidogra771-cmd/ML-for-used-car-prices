@@ -39,7 +39,7 @@
 To work with Machine Learning (ML) models in Python, the student must be comfortable with:
 
 | Skill | Why ML needs it |
-|-------|----------------|
+| --- | --- |
 | Variables, types, print | Every cell uses them |
 | Lists and dictionaries | Data is built from dictionaries of lists |
 | `for` loops, `if/else` | Results loop, one-hot encoding logic |
@@ -65,7 +65,7 @@ To work with Machine Learning (ML) models in Python, the student must be comfort
 **Goal:** The student writes and runs Python code, sees the Scratch parallels.
 
 | Time | Activity |
-|------|----------|
+| --- | --- |
 | 0-10 min | Open Scratch side-by-side with the session notebook. Show "set myVar to 5" → `my_var = 5`. |
 | 10-25 min | Work through **Sections 1-2** of the notebook: variables, `print()`, types (`str`, `int`, `float`, `bool`) with car examples. Student runs each cell and predicts the output before running it. |
 | 25-40 min | Work through **Sections 3-5**: f-strings, changing variables, Scratch vs Python comparison table. |
@@ -81,7 +81,7 @@ To work with Machine Learning (ML) models in Python, the student must be comfort
 **Goal:** The student can create lists, loop through them, and use `if/else`.
 
 | Time | Activity |
-|------|----------|
+| --- | --- |
 | 0-10 min | Review Session 1 challenges. Fix any confusion. |
 | 10-25 min | Work through **Sections 1-2** of the notebook: lists (indexing, `append`, `len`), `for` loops with car brands and prices. Scratch parallel: "item 1 of list" and "repeat for each". Stress that Python counts from 0. |
 | 25-40 min | Work through **Sections 3-4**: `if/elif/else` and combining loops + conditionals (categorizing cars by price). |
@@ -100,7 +100,7 @@ To work with Machine Learning (ML) models in Python, the student must be comfort
 **Goal:** The student understands dictionaries (needed for DataFrames) and can write simple functions.
 
 | Time | Activity |
-|------|----------|
+| --- | --- |
 | 0-10 min | Review Session 2 challenges. Work through **Section 1**: dictionaries as labeled storage, accessing values by key, modifying and looping with `.items()`. Analogy: "a dictionary is like a Scratch list but each item has a label instead of a number." |
 | 10-25 min | **Section 2**: dictionary of lists - the exact structure that powers DataFrames. Print a manual table from a dictionary. "Next session, pandas will do this formatting for us." |
 | 25-40 min | **Section 3**: functions with `def`. Start with `honk()`, build up to parameters, then `return`. Scratch parallel: "My Blocks" / custom blocks. Practice `is_affordable()` and `total_with_tax()`. |
@@ -120,7 +120,7 @@ To work with Machine Learning (ML) models in Python, the student must be comfort
 **Goal:** The student can import pandas, create a DataFrame, and explore it.
 
 | Time | Activity |
-|------|----------|
+| --- | --- |
 | 0-10 min | Review Session 3 challenges. Work through **Sections 1-2**: what is a library (Scratch parallel: Extensions), `import pandas as pd`, creating a DataFrame from a dictionary. "One line replaces all our manual table printing!" |
 | 10-25 min | **Sections 3-5**: exploring a DataFrame (`.head()`, `.shape`, `.columns`, `.dtypes`, `.describe()`), selecting and dropping columns. Explain `axis=1` (columns, not rows). |
 | 25-40 min | **Sections 6-7**: sorting, filtering with boolean masks (`df[df["price"] < 20000]`), counting unique values. |
@@ -134,15 +134,17 @@ To work with Machine Learning (ML) models in Python, the student must be comfort
 
 ### Session 5 - One-Hot Encoding (the Conceptual Bridge)
 
+**Notebook:** [`catch-up/session5-one-hot-encoding.ipynb`](catch-up/session5-one-hot-encoding.ipynb)
+
 **Goal:** The student understands *why* and *how* we turn words into numbers.
 
 | Time | Activity |
-|------|----------|
-| 0-10 min | Warm-up question: "Can a calculator multiply 'Ford' times 3?" No. Computers need numbers. |
-| 10-25 min | Manual encoding on paper: draw a table with brands Ford, Toyota, BMW. Add columns `is_Ford`, `is_Toyota`, `is_BMW`. Fill in 1s and 0s together. This is one-hot encoding. |
-| 25-40 min | Walk through `some_utilities.py` line by line. The student should predict what each loop does before running it. Focus on the inner loop: "for each car, is it equal to this brand? 1 or 0." |
-| 40-50 min | Now show the pandas shortcut: `pd.get_dummies(df, columns=["brand"])`. Compare output to the manual version. "Same result, one line of code." |
-| 50-60 min | Walk through n2 notebook from start to finish. Student runs each cell. |
+| --- | --- |
+| 0-10 min | Warm-up question: "Can a calculator multiply 'Ford' times 3?" No. Computers need numbers. Work through **Sections 1-2**: why numbering (Ford=1, Toyota=2) creates fake relationships, and how one-hot encoding solves it. Manual encoding on paper first. |
+| 10-25 min | Work through **Section 3**: build one-hot encoding by hand in 3 steps (find unique, encode one brand, encode all brands). Student predicts output before running each cell. |
+| 25-40 min | **Section 4**: import and use `get_dummies()` from `some_utilities.py`. Walk through the function line by line. Then **Section 5**: the pandas shortcut `pd.get_dummies(df, columns=["brand"])`. Compare output to the manual version. "Same result, one line of code." |
+| 40-50 min | **Section 6**: walk through the n2 pipeline (create → encode → X/y split). Student runs each cell and narrates. |
+| 50-60 min | **Challenges 1-3**: encode by hand (paper then code), use the custom function, build a full encoding pipeline. |
 
 **Self-study:**
 
@@ -151,15 +153,17 @@ To work with Machine Learning (ML) models in Python, the student must be comfort
 
 ### Session 6 - Train/Test Split and Putting It Together
 
+**Notebook:** [`catch-up/session6-train-test-split.ipynb`](catch-up/session6-train-test-split.ipynb)
+
 **Goal:** The student understands why we split data and can prepare a dataset for ML.
 
 | Time | Activity |
-|------|----------|
-| 0-10 min | Analogy: "Imagine studying for a math test. You practice with 80 problems. Then you take a test with 20 NEW problems. If you score well on problems you've never seen, you actually learned." That's train/test split. |
-| 10-20 min | Code it: `X = df_encoded.drop("price", axis=1)` and `y = df_encoded["price"]`. Explain: X = the questions (features), y = the answers (price). |
-| 20-35 min | `train_test_split(X, y, test_size=0.2, random_state=42)`. Explain each argument. Let student change `test_size` and see how the counts change. Explain `random_state` as "the shuffle seed". |
-| 35-55 min | Full walkthrough: build the n2 pipeline from scratch in a blank notebook (not copying - typing from memory with hints). Dictionary → DataFrame → get_dummies → X/y split → train_test_split. |
-| 55-60 min | "Next session: we give this data to an AI and it learns to predict prices." |
+| --- | --- |
+| 0-10 min | **Section 1**: the studying analogy. "Imagine studying for a math test. You practice with 80 problems. Then you take a test with 20 NEW problems. If you score well on problems you've never seen, you actually learned." That's train/test split. |
+| 10-20 min | **Sections 2-3**: Code the X/y split and `train_test_split(X, y, test_size=0.2, random_state=42)`. Explain each argument. Explain the 4-variable return: X_train, X_test, y_train, y_test. |
+| 20-35 min | **Section 4**: Experiment — change `test_size` and `random_state`, see how the split changes. Then **Section 5**: walk through the complete 4-step pipeline together. |
+| 35-55 min | **Challenge 3**: build the full pipeline from memory with a new dataset (not copying — typing from memory with hints). Dictionary → DataFrame → get_dummies → X/y split → train_test_split. |
+| 55-60 min | Recap Phase 1 achievement. "Next session: we give this data to an AI and it learns to predict prices." |
 
 **Self-study:**
 
@@ -175,7 +179,7 @@ To work with Machine Learning (ML) models in Python, the student must be comfort
 **Goal:** The student understands y = mx + b and how a computer finds the best line.
 
 | Time | Activity |
-|------|----------|
+| --- | --- |
 | 0-15 min | On paper or whiteboard: plot 5 cars as dots - X axis = mileage, Y axis = price. Ask: "Can you draw a line that gets close to all dots?" |
 | 15-30 min | Introduce `y = mx + b`. m = slope (how much price drops per mile), b = starting price. Try two different lines and measure which one is "less wrong" by measuring distances from dots to line. |
 | 30-45 min | Do the same in Python with matplotlib: plot the car data as a scatter plot. `plt.scatter(df["mileage"], df["price"])`. |
@@ -192,7 +196,7 @@ To work with Machine Learning (ML) models in Python, the student must be comfort
 **Goal:** The student trains a LinearRegression model and makes predictions.
 
 | Time | Activity |
-|------|----------|
+| --- | --- |
 | 0-10 min | Quick recap: what does `train_test_split` give us? (4 things: X_train, X_test, y_train, y_test). |
 | 10-25 min | Three magic lines: `model = LinearRegression()`, `model.fit(X_train, y_train)`, `predictions = model.predict(X_test)`. Explain each: create → study → answer. |
 | 25-40 min | Run it on the mock data from n2. Print actual vs. predicted side by side. "How close was the AI?" |
@@ -209,7 +213,7 @@ To work with Machine Learning (ML) models in Python, the student must be comfort
 **Goal:** The student can walk through `n3_price_engine.ipynb` and explain every line.
 
 | Time | Activity |
-|------|----------|
+| --- | --- |
 | 0-5 min | Open n3. "Today you're the teacher. Explain each cell to me." |
 | 5-30 min | Student explains cell by cell. Instructor only intervenes to correct misconceptions. If student gets stuck, give a hint, don't give the answer. |
 | 30-45 min | Notice n3 reads from `usedcarprices_sujayr_train.csv` - a real dataset with more columns. Explore it together: what columns are there? Which are numbers, which are text? |
@@ -226,7 +230,7 @@ To work with Machine Learning (ML) models in Python, the student must be comfort
 **Goal:** The student adds missing preprocessing steps to make n3 run end-to-end on the real CSV.
 
 | Time | Activity |
-|------|----------|
+| --- | --- |
 | 0-10 min | Review: n3 loads data but jumps straight to model training without encoding or feature selection. Let's fix that. |
 | 10-25 min | Together, select numeric columns (Year, Kilometers_Driven, Seats) and encode Fuel_Type and Transmission using get_dummies. Handle missing values with `df.dropna()` (simplest approach). |
 | 25-40 min | Build the full pipeline: load → clean → encode → X/y split → train/test split → train → predict → evaluate. Student types, instructor guides. |
@@ -243,7 +247,7 @@ To work with Machine Learning (ML) models in Python, the student must be comfort
 **Goal:** Solidify understanding. Student should be able to build a mini ML pipeline without help.
 
 | Time | Activity |
-|------|----------|
+| --- | --- |
 | 0-5 min | "Today is your final exam on this phase. I'll give you a small dataset and you build the whole thing." |
 | 5-40 min | Provide a simple new dataset (e.g., house prices with 3-4 columns, or make one up with 15 rows). Student builds: DataFrame → encoding → split → train → predict → evaluate. Instructor stays silent unless student is stuck for >3 minutes. |
 | 40-50 min | Review together. What went well? What was tricky? |
@@ -288,6 +292,7 @@ Package the work: clean up notebooks, add markdown explanations, create a summar
 ## Self-Study Resources (Reference List)
 
 ### Setup and Tools (Watch First)
+
 - [Kevin Stratvert - Python for Beginners](https://www.youtube.com/watch?v=b093aqAZiPU) - full beginner tutorial using VSCode, covers install + basics.
 - [VS Code Jupyter Notebooks docs](https://code.visualstudio.com/docs/datascience/jupyter-notebooks) - reference for shortcuts, debugging, and features
 
